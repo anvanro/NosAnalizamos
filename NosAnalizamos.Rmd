@@ -239,5 +239,26 @@ cat("El valor para la imputación generalizada es:", media_global_fp)
 
 ### Define una nueva variable (PulseCat) a partir del ritmo cardíaco (Pulse), con dos valores PulseH, si Pulse>=65 y PulseL si Pulse<65. ¿Qué valores utilizarías para imputar los valores faltantes de las notas de FP, dependiendo del valor de PulseCat (imputación por casos similares)
 
+
+Si vamos a depender de los valores de la variable nueva PulseCat, utilizaremos la estrategia de imputación por casos similares. Para esto haremos un conteo de PulseH y PulseL y luego aplicamos la imputacion según el grupo.
+
+```{r}
+datos_imputacion <- datos %>% 
+  mutate(PulseCat = if_else(Pulse >= 65, "PulseH", "PulseL"))
+
+valores_pulse <- datos_imputacion %>% 
+  group_by(PulseCat) %>% 
+  summarise(Media_FP = mean(FP, na.rm = TRUE))
+
+cat("Valores a utilizar para la imputación por casos similares:")
+valores_pulse
+
+datos_finales <- datos_imputacion %>% 
+  group_by(PulseCat) %>% 
+  mutate(FP_imputada = if_else(is.na(FP), mean(FP, na.rm = TRUE), FP)) %>% 
+  ungroup()
+```
+
+
 ### ¿Qué podemos decir, como científicos de datos, ante esta frase referida a nuestros datos ? "El ritmo cardíaco está ligado con la cantidad de sangre que llega al cerebro, por tanto existirá una relación lineal directa esta esta variable y las calificaciones obtenidas en ALG"
 
