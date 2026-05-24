@@ -119,3 +119,25 @@ datos_largos %>% ggplot(aes(x = asignaturas, y = nota, fill = Sex)) +
   theme_minimal()
 ```
 
+```{r}
+datos_largos_completos <- datos %>% drop_na(ALG, ANM, FP, DCS, MD) %>% 
+  pivot_longer(
+    cols = c(ALG, ANM, FP, DCS, MD),
+    names_to = "asignaturas",
+    values_to = "nota"
+  )
+
+datos_largos_completos %>% 
+  ggplot(aes(x = Id, y = nota, color = asignaturas, group = asignaturas)) +
+  geom_line(linewidth = 0.5) + 
+  scale_x_discrete(guide = guide_axis(angle = 90)) + 
+  geom_point(size = 2) +              
+  labs(
+    title = "Calificaciones de Alumnos con Expediente Completo",
+    x = "Usuario del Alumno (Id)",
+    y = "Calificación",
+    color = "Asignatura"
+  ) +
+  theme_minimal()
+```
+
