@@ -262,3 +262,4 @@ datos_finales <- datos_imputacion %>%
 
 ### ¿Qué podemos decir, como científicos de datos, ante esta frase referida a nuestros datos ? "El ritmo cardíaco está ligado con la cantidad de sangre que llega al cerebro, por tanto existirá una relación lineal directa esta esta variable y las calificaciones obtenidas en ALG"
 
+Como científicos de datos, ante esta frase debemos mostrar un escepticismo estadístico y refutar la conclusión. Que la sangre llegue al cerebro no significa que tengamos un mejor rendimiento en ALG por tener las pulsaciones altas. Además, si el estudiante está nervioso en el examen con el pulso alto, lo más seguro es que no saque una calificación alta.
