@@ -140,4 +140,41 @@ datos_largos_completos %>%
   ) +
   theme_minimal()
 ```
+Ahora comparamos los datos de este ano y los de 2022.
+
+```{r}
+datos2022 <- read_tsv("./data/NosAutoanalizamos2022 - Hoja1.tsv", skip = 25) %>% filter(Id != 'martsobm') %>% select(-1)
+
+
+```
+Los datos en data frames se parecen mucho en su estructura. A primera vista, podemos ver que en el conjunto de este año hay, además, una columna 'DNI' que antes no estaba. El resto se ve igual, con la necesidad de tratar las variables de calificaciones.
+
+## Preguntas sobre el dataset
+
+### ¿Qué edad, expresada en años (con decimales) tiene el alumno más joven a fecha 01/02/2026?
+```{r}
+edad <- datos %>% 
+  mutate(
+    Fecha_Nac = dmy(`FechaNac(DD-MM-YYY)`), 
+    Edad_Anyos = as.numeric(difftime("2026-02-01", Fecha_Nac, units = "days")) / 365.25
+  )
+min(edad$Edad_Anyos)
+```
+### Cuántos alumnos simultanean trabajo y estudios?
+```{r}
+trabajo_estudio <- datos %>% filter(Hwork > 0) %>% count()
+
+as.integer(trabajo_estudio)
+```
+### Hay más hombres o más mujeres fumadoras?
+```{r}
+smoke_mujeres <- datos %>% mutate(Smoke = tolower(Smoke)) %>% filter(Sex == "F" & Smoke == "si") %>% nrow()
+smoke_hombres <- datos %>% mutate(Smoke = tolower(Smoke)) %>% filter(Sex == "M" & Smoke == "si") %>% nrow()
+
+cat("Hombres fumadores:", as.integer(smoke_hombres), "\n")
+cat("Mujeres fumadoras:", as.integer(smoke_mujeres))
+```
+Podemos verificar que hay más hombres fumadores en este curso. De hecho no hay ni una mujer que fume.
+
+
 
