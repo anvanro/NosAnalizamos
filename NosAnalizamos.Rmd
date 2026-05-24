@@ -81,7 +81,7 @@ matriz_cov
 matriz_pearson <- cor(var_notas, method = "pearson", use = "complete.obs")
 cat("Matriz de correlación Pearson: \n")
 matriz_pearson
-diag(matriz_pearson) <- NA    #convertimos diagnoal en NA para encontral el verdadero maximo
+diag(matriz_pearson) <- NA    #convertimos diagonal en NA para encontrar el verdadero maximo
 cat("\nDonde el máximo se encuentra en:", max(matriz_pearson, na.rm = TRUE),". Lo cual corresponde a las variables", colnames(matriz_pearson)[which(matriz_pearson == max(matriz_pearson, na.rm = TRUE), arr.ind = TRUE)], "\n")
 matriz_spearman <- cor(var_notas, method = "spearman", use = "complete.obs")
 cat("Matriz de correlación Spearman: \n")
