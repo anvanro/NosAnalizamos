@@ -10,4 +10,19 @@ knitr::opts_chunk$set(echo = TRUE)
 
 if (!require("pacman")) install.packages("pacman")
 p_load(tidyverse, stringr, lubridate)
+```
+
+## Carga de datos
+
+```{r}
+#leemos los datos desde la linea 28 donde empieza la tabla
+datos <- read_tsv("./data/NosAutoanalizamos2026 - NosAutoanalizamos (1).tsv", skip = 27)
+```
+Al cargar el fichero en un data frame nos podemos dar cuenta de que el usuario 'andanomi' ha añadido un enlace a su GitHub en una columna nueva. Esta variable hace ruido en nuestro conjunto de datos, por lo tanto borramos las últimas dos columnas. En este paso también nos ocupamos de borrar al usuario 'martsobm'.
+
+```{r}
+datos <- datos %>% select(-22, -23) %>% filter(Id != "martsobm")
+
+```
+
 
