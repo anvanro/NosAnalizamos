@@ -188,4 +188,18 @@ est_wr <- datos %>% mutate(across(Wr.Hnd, function(x) {
 est_wr
 ```
 
+### Determina si existe relación entre el sexo y la mano con la que se escribe.
 
+```{r}
+mano_escribe <- datos %>% mutate(across(Wr.Hnd, function(x) {
+    x <- str_replace_all(x, ",", ".")        
+    x <- as.numeric(x)
+    return(x)
+    })) 
+
+tabla_cont <- table(mano_escribe$Wr.Hnd, mano_escribe$Sex)
+chisq.test(tabla_cont)
+
+```
+
+Como el valor $0.05763$, se encuentra ligeramente por encima del umbral estándar, no se rechaza la hipótesis nula H0. Podemos concluir que el sexo y la mano con la que se escribe son variables independientes
