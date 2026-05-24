@@ -25,4 +25,42 @@ datos <- datos %>% select(-22, -23) %>% filter(Id != "martsobm")
 
 ```
 
+## Transformaciones
+
+A continuacion transformamos las columnas de calificaciones a tipo numerico y tratamos los registros incorrectos.
+
+```{r}
+asignaturas <- c(ALG, ANM, FP, DCS, MD)
+datos <- datos %>% 
+  mutate(across(asignaturas, function(x) {
+    x <- str_replace_all(x, "NC", "3")
+    x <- str_replace_all(x, ",", ".")        
+    x <- as.numeric(x)
+    return(x)
+  }))
+```
+
+Visualizamos los estadísticos de estas variables en una tabla.
+
+```{r}
+
+resumen_notas <- datos %>%
+  # pasamos las columnas de asignaturas a formato largo para hacer summarise
+  pivot_longer(
+    cols = c(ALG, ANM, FP, DCS, MD),
+    names_to = "asignaturas",
+    values_to = "nota"
+  ) %>%
+  group_by(asignaturas) %>% 
+  summarise(
+    valor_minimo = round(min(nota, na.rm = TRUE), 2),
+    percentil25 = round(quantile(nota, probs = 0.25, na.rm = TRUE), 2),
+    mediana = round(median(nota, na.rm = TRUE), 2),
+    valor_medio = round(mean(nota, na.rm = TRUE), 2),
+    desviacion_tipica = round(sd(nota, na.rm = TRUE), 2),
+    percentil75 = round(quantile(nota, probs = 0.75, na.rm = TRUE), 2),
+    valor_maximo = round(max(nota, na.rm = TRUE), 2))
+
+resumen_notas
+```
 
