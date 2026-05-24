@@ -176,5 +176,16 @@ cat("Mujeres fumadoras:", as.integer(smoke_mujeres))
 ```
 Podemos verificar que hay más hombres fumadores en este curso. De hecho no hay ni una mujer que fume.
 
+### Cuál es el valor medio y la varianza de la variable Wr.Hnd según el sexo?
+
+```{r}
+est_wr <- datos %>% mutate(across(Wr.Hnd, function(x) {
+    x <- str_replace_all(x, ",", ".")        
+    x <- as.numeric(x)
+    return(x)
+    })) %>%
+    group_by(Sex) %>% summarise(Valor_medio = mean(Wr.Hnd, na.rm = TRUE), Varianza = var(Wr.Hnd, na.rm = TRUE))
+est_wr
+```
 
 
