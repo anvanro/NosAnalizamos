@@ -206,6 +206,10 @@ Como el valor $0.05763$, se encuentra ligeramente por encima del umbral estánda
 
 ### Existe una relación lineal entre la altura (Height) y la distancia del extremo del meñique al extremo del pulgar de la mano con la que escribimos (Wr.Hnd)?
 
+```{r}
+cor(datos$Height, mano_escribe$Wr.Hnd, method = "pearson", use = "complete.obs") #usamos metodo pearson ya que queremos ver la relacion lineal de estas dos variables
+```
+Hay una relación lineal positiva muy leve entre estas dos variables.
 
 ### El identificador de Hampel detecta algún outlier en la variable altura?
 
