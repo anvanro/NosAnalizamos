@@ -203,3 +203,17 @@ chisq.test(tabla_cont)
 ```
 
 Como el valor $0.05763$, se encuentra ligeramente por encima del umbral estándar, no se rechaza la hipótesis nula H0. Podemos concluir que el sexo y la mano con la que se escribe son variables independientes
+
+### Existe una relación lineal entre la altura (Height) y la distancia del extremo del meñique al extremo del pulgar de la mano con la que escribimos (Wr.Hnd)?
+
+
+### El identificador de Hampel detecta algún outlier en la variable altura?
+
+
+### Considera la asignatura FP. Si queremos realizar una imputación generalizada usando la media, ¿qué valor deberíamos utilizar ?
+
+
+### Define una nueva variable (PulseCat) a partir del ritmo cardíaco (Pulse), con dos valores PulseH, si Pulse>=65 y PulseL si Pulse<65. ¿Qué valores utilizarías para imputar los valores faltantes de las notas de FP, dependiendo del valor de PulseCat (imputación por casos similares)
+
+### ¿Qué podemos decir, como científicos de datos, ante esta frase referida a nuestros datos ? "El ritmo cardíaco está ligado con la cantidad de sangre que llega al cerebro, por tanto existirá una relación lineal directa esta esta variable y las calificaciones obtenidas en ALG"
+
