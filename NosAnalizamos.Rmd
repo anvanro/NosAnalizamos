@@ -232,6 +232,10 @@ cat("Los outliers detectados en Altura mediante Hampel son:", outliers_altura)
 
 ### Considera la asignatura FP. Si queremos realizar una imputación generalizada usando la media, ¿qué valor deberíamos utilizar ?
 
+```{r}
+media_global_fp <- mean(datos$FP, na.rm = TRUE)
+cat("El valor para la imputación generalizada es:", media_global_fp)
+```
 
 ### Define una nueva variable (PulseCat) a partir del ritmo cardíaco (Pulse), con dos valores PulseH, si Pulse>=65 y PulseL si Pulse<65. ¿Qué valores utilizarías para imputar los valores faltantes de las notas de FP, dependiendo del valor de PulseCat (imputación por casos similares)
 
