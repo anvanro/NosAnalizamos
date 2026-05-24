@@ -1,0 +1,13 @@
+---
+title: "NosAnalizamos"
+author: "Andrea Vandirek Romero"
+date: "2026-05-24"
+output: html_document
+---
+
+```{r setup, include=FALSE, eval = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+if (!require("pacman")) install.packages("pacman")
+p_load(tidyverse, stringr, lubridate)
+
