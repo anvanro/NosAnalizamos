@@ -62,6 +62,8 @@ resumen_notas <- datos %>%
     valor_maximo = round(max(nota, na.rm = TRUE), 2))
 
 resumen_notas
+
+save(resumen_notas, file = "Notas.Rdata")
 ```
 
 Representamos las relaciones entre todas las variables:
