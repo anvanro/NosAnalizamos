@@ -2,7 +2,9 @@
 title: "NosAnalizamos"
 author: "Andrea Vandirek Romero"
 date: "2026-05-24"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE, eval = FALSE}
