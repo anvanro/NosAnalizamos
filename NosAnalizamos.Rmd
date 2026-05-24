@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 
 if (!require("pacman")) install.packages("pacman")
-p_load(tidyverse, stringr, lubridate)
+p_load(tidyverse, stringr, lubridate, GGally)
 ```
 
 ## Carga de datos
@@ -30,7 +30,7 @@ datos <- datos %>% select(-22, -23) %>% filter(Id != "martsobm")
 A continuacion transformamos las columnas de calificaciones a tipo numerico y tratamos los registros incorrectos.
 
 ```{r}
-asignaturas <- c(ALG, ANM, FP, DCS, MD)
+asignaturas <- c("ALG", "ANM", "FP", "DCS", "MD")
 datos <- datos %>% 
   mutate(across(asignaturas, function(x) {
     x <- str_replace_all(x, "NC", "3")
@@ -63,4 +63,31 @@ resumen_notas <- datos %>%
 
 resumen_notas
 ```
+
+Representamos las relaciones entre todas las variables:
+
+```{r, warning=FALSE}
+ggpairs(resumen_notas, title = "Matriz de Relaciones entre Calificaciones", progress = FALSE)
+```
+
+Calculamos las covarianzas y correlaciones de cada variable:
+
+```{r}
+var_notas <- datos %>% select(ALG, ANM, FP, MD,DCS)
+
+matriz_cov <- cov(var_notas, use = "complete.obs")
+cat("Matriz de covarianza: \n")
+matriz_cov
+matriz_pearson <- cor(var_notas, method = "pearson", use = "complete.obs")
+cat("Matriz de correlación Pearson: \n")
+matriz_pearson
+diag(matriz_pearson) <- NA    #convertimos diagnoal en NA para encontral el verdadero maximo
+cat("\nDonde el máximo se encuentra en:", max(matriz_pearson, na.rm = TRUE),". Lo cual corresponde a las variables", colnames(matriz_pearson)[which(matriz_pearson == max(matriz_pearson, na.rm = TRUE), arr.ind = TRUE)], "\n")
+matriz_spearman <- cor(var_notas, method = "spearman", use = "complete.obs")
+cat("Matriz de correlación Spearman: \n")
+matriz_spearman
+diag(matriz_spearman) <- NA
+cat("\nDonde el máximo se encuentra en:", max(matriz_spearman, na.rm = TRUE),". Lo cual corresponde a las variables ", colnames(matriz_spearman)[which(matriz_spearman == max(matriz_spearman, na.rm = TRUE), arr.ind = TRUE)])
+```
+
 
