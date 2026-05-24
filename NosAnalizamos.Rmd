@@ -25,7 +25,7 @@ datos <- datos %>% select(-22, -23) %>% filter(Id != "martsobm")
 
 ```
 
-## Transformaciones
+## Transformaciones y Análisis
 
 A continuacion transformamos las columnas de calificaciones a tipo numerico y tratamos los registros incorrectos.
 
@@ -89,5 +89,21 @@ matriz_spearman
 diag(matriz_spearman) <- NA
 cat("\nDonde el máximo se encuentra en:", max(matriz_spearman, na.rm = TRUE),". Lo cual corresponde a las variables ", colnames(matriz_spearman)[which(matriz_spearman == max(matriz_spearman, na.rm = TRUE), arr.ind = TRUE)])
 ```
+Representamos las calificaciones en un Boxplot:
 
+```{r}
+datos_largos <- datos %>% 
+  pivot_longer(
+    cols = c(ALG, ANM, FP, DCS, MD),
+    names_to = "asignaturas",
+    values_to = "nota")
+
+datos_largos %>% ggplot(aes(x = asignaturas, y = nota, fill = asignaturas)) +
+  geom_boxplot() + 
+  labs(
+    title = "Distribución de Calificaciones por Asignatura",
+    x = "Asignaturas",
+    y = "Notas") +
+  theme_minimal()
+```
 
