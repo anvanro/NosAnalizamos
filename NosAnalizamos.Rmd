@@ -213,6 +213,22 @@ Hay una relación lineal positiva muy leve entre estas dos variables.
 
 ### El identificador de Hampel detecta algún outlier en la variable altura?
 
+```{r}
+hampel <- function(x) {
+  mediana <- median(x, na.rm = TRUE)
+  mad_val <- mad(x, na.rm = TRUE) 
+  lim_inferior <- mediana - 3*mad_val
+  lim_superior <- mediana + 3*mad_val
+  
+  outliers <- x[x < lim_inferior | x > lim_superior]
+  return(outliers[!is.na(outliers)])
+}
+
+outliers_altura <- hampel(datos$Height)
+if (length(outliers_altura) == 0) outliers_altura <- 0
+cat("Los outliers detectados en Altura mediante Hampel son:", outliers_altura)
+```
+
 
 ### Considera la asignatura FP. Si queremos realizar una imputación generalizada usando la media, ¿qué valor deberíamos utilizar ?
 
